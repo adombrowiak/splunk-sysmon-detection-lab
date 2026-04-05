@@ -73,6 +73,12 @@ By extracting and analyzing command-line arguments from raw Sysmon XML, this ste
 - By identifying which processes spawn PowerShell and other executables, this step provides insight into execution chains and potential abuse of legitimate processes.
 - Parent-child relationships are a key component of threat hunting, as they help reveal suspicious process spawning patterns such as command-line interpreters launching PowerShell.
 
+### 9. Parent Processes Spawning PowerShell
+![parent_powershell](./screenshots/09_parent_powershell.png)
+- This query focuses specifically on identifying which parent processes are responsible for spawning PowerShell executions.
+- Filtering for PowerShell activity and grouping by parent-child relationships helps reveal execution chains and highlights how processes interact within the system.
+- This type of analysis is critical for detecting suspicious behavior, as attackers often use legitimate parent processes to launch PowerShell in order to evade detection.
+
 ## Author
 Aaron
 
