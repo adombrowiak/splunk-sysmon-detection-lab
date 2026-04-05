@@ -34,16 +34,17 @@ The goal is to simulate common attacker behaviors and build detections based on 
 
 ## Screenshots
 ### 1. Data Ingestion
-
 Sysmon telemetry successfully ingested into Splunk via the Universal Forwarder from a Windows endpoint.
-
 ![Data ingestion](./screenshots/01_data_ingestion.png)
 
 ### 2. Raw Sysmon Event (Event ID 1)
-
 Expanded Sysmon Event ID 1 (Process Creation) in raw XML format, validating event structure and field availability for detection development.
-
 ![raw_event](./screenshots/02_raw_event.png)
+
+### 3. Field Extraction (Process + Command Line)
+Extracted process image and command-line arguments from raw Sysmon XML logs using regex (rex), enabling structured analysis and detection development.
+![field_extraction](./screenshots/03_field_extraction.png)
+
 ## Author
 Aaron
 
