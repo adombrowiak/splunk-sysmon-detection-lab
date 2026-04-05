@@ -45,6 +45,10 @@ Expanded Sysmon Event ID 1 (Process Creation) in raw XML format, validating even
 Extracted process image and command-line arguments from raw Sysmon XML logs using regex (rex), enabling structured analysis and detection development.
 ![field_extraction](./screenshots/03_field_extraction.png)
 
+### 4. Detection Logic (PowerShell Activity)
+Aggregated Sysmon process creation events to identify PowerShell execution frequency, demonstrating detection-focused analysis using field extraction and statistical grouping.
+![detection_logic](./screenshots/04_detection_logic.png)
+
 ## Author
 Aaron
 
