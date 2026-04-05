@@ -1,9 +1,9 @@
 # Splunk + Sysmon Detection Lab
 
 ## Overview
-This lab demonstrates detection engineering techniques using Sysmon telemetry ingested into Splunk.
+This lab demonstrates detection engineering using Sysmon telemetry in Splunk, with a focus on identifying attacker tradecraft through process creation events.
 
-The goal is to simulate common attacker behaviors and build detections based on process execution, command-line activity, and parent-child relationships.
+Adversary techniques are simulated and analyzed through command-line activity and parent-child process relationships to develop behavior-based detections aligned with real-world SOC and threat hunting workflows.
 
 ## Environment
 - Windows 11 VM (endpoint)
