@@ -33,12 +33,11 @@ The goal is to simulate common attacker behaviors and build detections based on 
 - rundll32 execution tracking
 
 ## Screenshots
-
-![Data ingestion](<img width="1531" height="715" alt="01_data_ingestion" src="https://github.com/user-attachments/assets/c6d02a17-2093-4dce-bd87-257a0f947cff" />)
-
 ### Data Ingestion
 
 Sysmon telemetry successfully ingested into Splunk from a Windows endpoint using the Universal Forwarder.
+
+![Data ingestion](./screenshots/01_data_ingestion.png)
 
 ## Author
 Aaron
