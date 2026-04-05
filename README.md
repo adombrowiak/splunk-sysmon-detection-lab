@@ -82,10 +82,12 @@ By extracting and analyzing command-line arguments from raw Sysmon XML, this ste
 ### 10. Suspicious PowerShell Execution Patterns
 ![suspicious_powershell](./screenshots/10_suspicious_powershell.png)
 This query identifies PowerShell executions using commonly abused command-line flags associated with malicious activity.
+
 Filters include:
 - `-enc` (encoded commands)
 - `-nop` (no profile execution)
 - `-w hidden` (hidden window execution)
+
 By isolating these patterns, this step highlights behaviors frequently observed in real-world attacks, demonstrating how command-line analysis can be used to detect suspicious activity within process execution logs.
 
 ## Author
