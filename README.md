@@ -33,12 +33,17 @@ The goal is to simulate common attacker behaviors and build detections based on 
 - rundll32 execution tracking
 
 ## Screenshots
-### Data Ingestion
+### 1. Data Ingestion
 
-Sysmon telemetry successfully ingested into Splunk from a Windows endpoint using the Universal Forwarder.
+Sysmon telemetry successfully ingested into Splunk via the Universal Forwarder from a Windows endpoint.
 
 ![Data ingestion](./screenshots/01_data_ingestion.png)
 
+### 2. Raw Sysmon Event (Event ID 1)
+
+Expanded Sysmon Event ID 1 (Process Creation) in raw XML format, validating event structure and field availability for detection development.
+
+![raw_event](./screenshots/02_raw_event.png)
 ## Author
 Aaron
 
