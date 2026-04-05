@@ -51,33 +51,43 @@ Aggregated Sysmon process creation events to identify PowerShell execution frequ
 
 ### 5. Detection Logic (PowerShell Execution Patterns)
 ![detection_logic](./screenshots/05_detection_logic.png)
-- This query identifies PowerShell execution activity and aggregates results by both process image and command-line arguments.
-- By grouping on `cmdline`, this step exposes variations in how PowerShell is executed, enabling visibility into different execution patterns (e.g., standard execution vs. scripted or parameterized usage).
-- This is critical for detection engineering, as adversaries often modify command-line arguments to evade simple detections.
+This query identifies PowerShell execution activity and aggregates results by both process image and command-line arguments.
+
+By grouping on `cmdline`, this step exposes variations in how PowerShell is executed, enabling visibility into different execution patterns (e.g., standard execution vs. scripted or parameterized usage).
+
+This is critical for detection engineering, as adversaries often modify command-line arguments to evade simple detections.
 
 ### 6. Suspicious PowerShell Flags (Encoded Command)
 ![encoded_powershell](./screenshots/06_encoded_powershell.png)
 This query identifies PowerShell executions that include the `-enc` flag, a common obfuscation technique used to conceal command content.
+
 The presence of Base64-encoded arguments indicates potential attempts to evade detection by hiding execution intent within encoded payloads.
+
 By extracting and analyzing command-line arguments from raw Sysmon XML, this step demonstrates how obfuscated execution can be surfaced through targeted detection logic.
 
 ### 7. Suspicious PowerShell Flags (Broader Detection)
 ![suspicious_flags](./screenshots/07_suspicious_flags.png)
-- This query expands detection logic to identify multiple suspicious PowerShell execution flags, including `-enc`, `-nop`, and `-w hidden`.
-- These flags are commonly associated with attacker tradecraft, enabling stealth execution, obfuscation, and evasion of basic monitoring controls.
-- By correlating multiple indicators within command-line arguments, this step demonstrates a more comprehensive threat hunting approach beyond single-pattern detection.
+This query expands detection logic to identify multiple suspicious PowerShell execution flags, including `-enc`, `-nop`, and `-w hidden`.
+
+These flags are commonly associated with attacker tradecraft, enabling stealth execution, obfuscation, and evasion of basic monitoring controls.
+
+By correlating multiple indicators within command-line arguments, this step demonstrates a more comprehensive threat hunting approach beyond single-pattern detection.
 
 ### 8. Parent-Child Process Relationships
 ![parent_child](./screenshots/08_parent_child.png)
-- This query analyzes process creation relationships by correlating parent and child processes within Sysmon Event ID 1 telemetry.
-- By identifying which processes spawn PowerShell and other executables, this step provides insight into execution chains and potential abuse of legitimate processes.
-- Parent-child relationships are a key component of threat hunting, as they help reveal suspicious process spawning patterns such as command-line interpreters launching PowerShell.
+This query analyzes process creation relationships by correlating parent and child processes within Sysmon Event ID 1 telemetry.
+
+By identifying which processes spawn PowerShell and other executables, this step provides insight into execution chains and potential abuse of legitimate processes.
+
+Parent-child relationships are a key component of threat hunting, as they help reveal suspicious process spawning patterns such as command-line interpreters launching PowerShell.
 
 ### 9. Parent Processes Spawning PowerShell
 ![parent_powershell](./screenshots/09_parent_powershell.png)
-- This query focuses specifically on identifying which parent processes are responsible for spawning PowerShell executions.
-- Filtering for PowerShell activity and grouping by parent-child relationships helps reveal execution chains and highlights how processes interact within the system.
-- This type of analysis is critical for detecting suspicious behavior, as attackers often use legitimate parent processes to launch PowerShell in order to evade detection.
+This query focuses specifically on identifying which parent processes are responsible for spawning PowerShell executions.
+
+Filtering for PowerShell activity and grouping by parent-child relationships helps reveal execution chains and highlights how processes interact within the system.
+
+This type of analysis is critical for detecting suspicious behavior, as attackers often use legitimate parent processes to launch PowerShell in order to evade detection.
 
 ### 10. Suspicious PowerShell Execution Patterns
 ![suspicious_powershell](./screenshots/10_suspicious_powershell.png)
