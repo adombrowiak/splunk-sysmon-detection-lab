@@ -63,9 +63,15 @@ By extracting and analyzing command-line arguments from raw Sysmon XML, this ste
 
 ### 7. Suspicious PowerShell Flags (Broader Detection)
 ![suspicious_flags](./screenshots/07_suspicious_flags.png)
-This query expands detection logic to identify multiple suspicious PowerShell execution flags, including `-enc`, `-nop`, and `-w hidden`.
-These flags are commonly associated with attacker tradecraft, enabling stealth execution, obfuscation, and evasion of basic monitoring controls.
-By correlating multiple indicators within command-line arguments, this step demonstrates a more comprehensive threat hunting approach beyond single-pattern detection.
+- This query expands detection logic to identify multiple suspicious PowerShell execution flags, including `-enc`, `-nop`, and `-w hidden`.
+- These flags are commonly associated with attacker tradecraft, enabling stealth execution, obfuscation, and evasion of basic monitoring controls.
+- By correlating multiple indicators within command-line arguments, this step demonstrates a more comprehensive threat hunting approach beyond single-pattern detection.
+
+### 8. Parent-Child Process Relationships
+![parent_child](./screenshots/08_parent_child.png)
+- This query analyzes process creation relationships by correlating parent and child processes within Sysmon Event ID 1 telemetry.
+- By identifying which processes spawn PowerShell and other executables, this step provides insight into execution chains and potential abuse of legitimate processes.
+- Parent-child relationships are a key component of threat hunting, as they help reveal suspicious process spawning patterns such as command-line interpreters launching PowerShell.
 
 ## Author
 Aaron
