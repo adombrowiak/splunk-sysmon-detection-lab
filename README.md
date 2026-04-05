@@ -51,9 +51,9 @@ Aggregated Sysmon process creation events to identify PowerShell execution frequ
 
 ### 5. Detection Logic (PowerShell Execution Patterns)
 ![detection_logic](./screenshots/05_detection_logic.png)
-This query identifies PowerShell execution activity and aggregates results by both process image and command-line arguments.
-By grouping on `cmdline`, this step exposes variations in how PowerShell is executed, enabling visibility into different execution patterns (e.g., standard execution vs. scripted or parameterized usage).
-This is critical for detection engineering, as adversaries often modify command-line arguments to evade simple detections.
+- This query identifies PowerShell execution activity and aggregates results by both process image and command-line arguments.
+- By grouping on `cmdline`, this step exposes variations in how PowerShell is executed, enabling visibility into different execution patterns (e.g., standard execution vs. scripted or parameterized usage).
+- This is critical for detection engineering, as adversaries often modify command-line arguments to evade simple detections.
 
 ### 6. Suspicious PowerShell Flags (Encoded Command)
 ![encoded_powershell](./screenshots/06_encoded_powershell.png)
