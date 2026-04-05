@@ -55,6 +55,18 @@ This query identifies PowerShell execution activity and aggregates results by bo
 By grouping on `cmdline`, this step exposes variations in how PowerShell is executed, enabling visibility into different execution patterns (e.g., standard execution vs. scripted or parameterized usage).
 This is critical for detection engineering, as adversaries often modify command-line arguments to evade simple detections.
 
+### 6. Suspicious PowerShell Flags (Encoded Command)
+![encoded_powershell](./screenshots/06_encoded_powershell.png)
+This query identifies PowerShell executions that include the `-enc` flag, a common obfuscation technique used to conceal command content.
+The presence of Base64-encoded arguments indicates potential attempts to evade detection by hiding execution intent within encoded payloads.
+By extracting and analyzing command-line arguments from raw Sysmon XML, this step demonstrates how obfuscated execution can be surfaced through targeted detection logic.
+
+### 7. Suspicious PowerShell Flags (Broader Detection)
+![suspicious_flags](./screenshots/07_suspicious_flags.png)
+This query expands detection logic to identify multiple suspicious PowerShell execution flags, including `-enc`, `-nop`, and `-w hidden`.
+These flags are commonly associated with attacker tradecraft, enabling stealth execution, obfuscation, and evasion of basic monitoring controls.
+By correlating multiple indicators within command-line arguments, this step demonstrates a more comprehensive threat hunting approach beyond single-pattern detection.
+
 ## Author
 Aaron
 
