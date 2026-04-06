@@ -107,12 +107,12 @@ wevtutil qe Microsoft-Windows-Sysmon/Operational /c:5 /f:text
 
 ---
 
-## 3. Splunk Queries (Detection & Analysis)
+## 3. Splunk Queries (Analysis & Detection)
 
 ### Verify Data Ingestion
 
 ```spl
-index=main source="WinEventLog:Microsoft-Windows-Sysmon/Operational"
+index=main sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational"
 | table _time host source
 | head 15
 ```
@@ -122,7 +122,7 @@ index=main source="WinEventLog:Microsoft-Windows-Sysmon/Operational"
 ### Confirm Process Creation Events
 
 ```spl
-index=main source="WinEventLog:Microsoft-Windows-Sysmon/Operational" EventCode=1
+index=main sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" EventCode=1
 ```
 
 ---
@@ -130,7 +130,7 @@ index=main source="WinEventLog:Microsoft-Windows-Sysmon/Operational" EventCode=1
 ### XML-Based Event Filtering (Raw Logs)
 
 ```spl
-index=main source="WinEventLog:Microsoft-Windows-Sysmon/Operational" "<EventID>1</EventID>"
+index=main sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" "<EventID>1</EventID>"
 ```
 
 ---
@@ -138,7 +138,7 @@ index=main source="WinEventLog:Microsoft-Windows-Sysmon/Operational" "<EventID>1
 ### Extract Process Image (proc_image)
 
 ```spl
-index=main source="WinEventLog:Microsoft-Windows-Sysmon/Operational" "<EventID>1</EventID>"
+index=main sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" "<EventID>1</EventID>"
 | rex field=_raw "Name=['\"]Image['\"]>(?<proc_image>[^<]+)<"
 | table _time proc_image
 | head 20
@@ -149,7 +149,7 @@ index=main source="WinEventLog:Microsoft-Windows-Sysmon/Operational" "<EventID>1
 ### Extract Command Line Arguments
 
 ```spl
-index=main source="WinEventLog:Microsoft-Windows-Sysmon/Operational" "<EventID>1</EventID>"
+index=main sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" "<EventID>1</EventID>"
 | rex field=_raw "Name=['\"]Image['\"]>(?<proc_image>[^<]+)<"
 | rex field=_raw "Name=['\"]CommandLine['\"]>(?<cmdline>[^<]+)<"
 | table _time proc_image cmdline
@@ -161,7 +161,7 @@ index=main source="WinEventLog:Microsoft-Windows-Sysmon/Operational" "<EventID>1
 ### Parent-Child Process Relationships
 
 ```spl
-index=main source="WinEventLog:Microsoft-Windows-Sysmon/Operational" "<EventID>1</EventID>"
+index=main sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" "<EventID>1</EventID>"
 | rex field=_raw "Name=['\"]Image['\"]>(?<proc_image>[^<]+)<"
 | rex field=_raw "Name=['\"]ParentImage['\"]>(?<parent_image>[^<]+)<"
 | stats count by parent_image proc_image
@@ -173,10 +173,23 @@ index=main source="WinEventLog:Microsoft-Windows-Sysmon/Operational" "<EventID>1
 ### PowerShell Execution Detection
 
 ```spl
-index=main source="WinEventLog:Microsoft-Windows-Sysmon/Operational" "<EventID>1</EventID>"
+index=main sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" "<EventID>1</EventID>"
 | rex field=_raw "Name=['\"]Image['\"]>(?<proc_image>[^<]+)<"
 | search proc_image="*powershell*"
 | stats count by proc_image
+```
+
+---
+### Suspicious PowerShell Flags Detection
+
+```spl
+index=main sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" "<EventID>1</EventID>"
+| rex field=_raw "Name=['\"]Image['\"]>(?<proc_image>[^<]+)<"
+| rex field=_raw "Name=['\"]CommandLine['\"]>(?<cmdline>[^<]+)<"
+| search proc_image="*powershell*"
+| search cmdline="*-enc*" OR cmdline="*-nop*" OR cmdline="*-w hidden*"
+| stats count by proc_image cmdline
+| sort - count
 ```
 
 ---
