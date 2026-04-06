@@ -34,11 +34,11 @@ Adversary techniques are simulated and analyzed through command-line activity an
 
 ## Screenshots
 ### 1. Data Ingestion
-![Data ingestion](./screenshots/01_data_ingestion.png)
+![data_ingestion](./screenshots/01_data_ingestion.png)
 Sysmon telemetry successfully ingested into Splunk via the Universal Forwarder from a Windows endpoint.
 
 ### 2. Raw Sysmon Event (Event ID 1)
-![raw_event](./screenshots/02_raw_event.png)
+![raw_sysmon_event](./screenshots/02_raw_event.png)
 Expanded Sysmon Event ID 1 (Process Creation) in raw XML format, validating event structure and field availability for detection development.
 
 ### 3. Field Extraction (Process + Command Line)
@@ -49,7 +49,7 @@ Extracted process image and command-line arguments from raw Sysmon XML logs usin
 ![detection_logic](./screenshots/04_detection_logic.png)
 Aggregated Sysmon process creation events to identify PowerShell execution frequency, demonstrating detection-focused analysis using field extraction and statistical grouping.
 
-### 5. Detection Logic (PowerShell Execution Patterns)
+### 5. PowerShell Execution Pattern Analysis
 ![detection_logic](./screenshots/05_detection_logic.png)
 This query identifies PowerShell execution activity and aggregates results by both process image and command-line arguments.
 
@@ -99,6 +99,12 @@ Filters include:
 - `-w hidden` (hidden window execution)
 
 By isolating these patterns, this step highlights behaviors frequently observed in real-world attacks, demonstrating how command-line analysis can be used to detect suspicious activity within process execution logs.
+
+## Key Takeaways
+- Sysmon Event ID 1 provides high-fidelity visibility into process execution and attacker behavior.
+- Command-line analysis is critical for detecting obfuscated or stealthy execution techniques.
+- Parent-child process relationships reveal execution chains and potential abuse of legitimate processes.
+- Behavior-based detection is more resilient than static indicators in real-world environments.
 
 ## Author
 Aaron
